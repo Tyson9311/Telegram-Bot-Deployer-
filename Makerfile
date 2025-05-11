@@ -1,0 +1,29 @@
+# Makefile
+
+.PHONY: build up down logs restart clean deploy
+
+build:
+    @echo "Building Docker image..."
+    docker-compose build
+
+up:
+    @echo "Starting the Docker containers..."
+    docker-compose up -d
+
+down:
+    @echo "Stopping and removing Docker containers..."
+    docker-compose down
+
+logs:
+    @echo "Showing logs..."
+    docker-compose logs -f
+
+restart: down up
+    @echo "Containers restarted."
+
+clean:
+    @echo "Cleaning up unused containers and images..."
+    docker system prune -f
+
+deploy: build up
+    @echo "Bot deployed and running."
